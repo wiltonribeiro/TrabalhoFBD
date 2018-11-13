@@ -12,7 +12,11 @@ public class ControllerImovel {
        dao = new DAOImovel();
     }
     
-    public List<Imovel> listarImoveis(){
+    public void addImovel(Imovel imovel) throws Exception{
+        dao.add(imovel);
+    }
+    
+    public List<Imovel> listarImoveis() throws Exception{
         return dao.list();
     }
 }

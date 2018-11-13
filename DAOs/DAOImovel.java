@@ -1,7 +1,10 @@
 package imobiliaria.DAOs;
 
 import imobiliaria.config.DatabaseConnection;
+import imobiliaria.pojo.Apartamento;
+import imobiliaria.pojo.Casa;
 import imobiliaria.pojo.Imovel;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -17,8 +20,21 @@ public class DAOImovel implements DAO<Imovel> {
     }
 
     @Override
-    public void add(Imovel imovel) {
+    public void add(Imovel imovel) throws Exception{        
+        String sql = "INSERT INTO imovel(id_usuario, endereco, complemento) values(?,?,?) returning id_imovel";
+        connection = new DatabaseConnection();
+        PreparedStatement stmt = connection.getCon().prepareStatement(sql);           
+        stmt.setInt(1, imovel.getId_usuario());
+        stmt.setString(2, imovel.getEndereco());
+        stmt.setString(3, imovel.getComplemento());
+        ResultSet rs = stmt.executeQuery();
+        rs.next();
+        imovel.setId_imovel(rs.getInt("id_imovel"));                                              
         
+        if(imovel instanceof Apartamento)
+            new DAOApartamento().add((Apartamento) imovel);
+        else if(imovel instanceof Casa)            
+            new DAOCasa().add((Casa) imovel);
     }
 
     @Override
@@ -32,20 +48,16 @@ public class DAOImovel implements DAO<Imovel> {
     }
 
     @Override
-    public List<Imovel> list() {
-        try {
-            String sql = "SELECT * from Imovel";
-            connection = new DatabaseConnection();
-            Statement stmt = connection.getCon().createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-            
-            while (rs.next()) {
-                imoveis.add(new Imovel(rs.getInt("id_imovel"), rs.getString("endereco"), rs.getString("complemento")));
-            }            
-            
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }         
+    public List<Imovel> list() throws Exception{
+        
+        String sql = "SELECT * from Imovel";
+        connection = new DatabaseConnection();
+        Statement stmt = connection.getCon().createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+
+        while (rs.next()) {
+            imoveis.add(new Imovel(rs.getInt("id_imovel"),rs.getInt("id_usuario"), rs.getString("endereco"), rs.getString("complemento")));
+        }                              
         
         return imoveis;
     }
