@@ -27,8 +27,7 @@ public class DAOCasa implements DAO<Casa> {
         stmt.setInt(1, casa.getId_imovel());        
         
         ResultSet rs = stmt.executeQuery();
-        rs.next();
-        casa.setId_casa(rs.getInt("id_casa"));                                              
+        if(rs.next()) casa.setId_casa(rs.getInt("id_casa"));                                              
     }
 
     @Override

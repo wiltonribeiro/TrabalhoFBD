@@ -26,8 +26,7 @@ public class DAOUsuario implements DAO<Usuario>{
             stmt.setString(2, usuario.getEndereco());
             stmt.setString(3, usuario.getContato());
             ResultSet rs = stmt.executeQuery();
-            rs.next();
-            usuario.setId_usuario(rs.getInt("id_usuario"));
+            if(rs.next()) usuario.setId_usuario(rs.getInt("id_usuario"));
                                        
         
     }

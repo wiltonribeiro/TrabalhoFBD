@@ -27,8 +27,7 @@ public class DAOApartamento implements DAO<Apartamento> {
         stmt.setInt(2, apartamento.getNumero_andar());        
         
         ResultSet rs = stmt.executeQuery();
-        rs.next();
-        apartamento.setId_imovel(rs.getInt("id_apartamento"));                                              
+        if(rs.next()) apartamento.setId_imovel(rs.getInt("id_apartamento"));                                              
     }
 
     @Override

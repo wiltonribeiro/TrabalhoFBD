@@ -1,8 +1,14 @@
 package imobiliaria;
+import imobiliaria.controllers.ControllerAluguel;
+import imobiliaria.controllers.ControllerCompra;
 import imobiliaria.controllers.ControllerImovel;
 import imobiliaria.controllers.ControllerUsuario;
+import imobiliaria.pojo.Aluguel;
 import imobiliaria.pojo.Apartamento;
+import imobiliaria.pojo.Compra;
 import imobiliaria.pojo.Imovel;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -97,6 +103,7 @@ public class Imobiliaria {
         System.out.println("2 - Listar Usuários");
         System.out.println("3 - Listar Usuários Inquilinos");
         System.out.println("4 - Listar Usuários Proprietários");                      
+        System.out.println("5 - Listar Usuários Inquilinos Atrasados");                      
         System.out.println("----------------------------");       
         int menu = scanner.nextInt();
         switch (menu){
@@ -128,21 +135,69 @@ public class Imobiliaria {
     }
     
     public static void menuEscolhaAlugueis(){
+        
+        ControllerAluguel controller = new ControllerAluguel();
+        int id_usuario, id_imovel;
+        double valor;
+        
         System.out.println("----------------------------");
         System.out.println("O que deseja ?");
-        System.out.println("1 - Cadastrar Aluguel");
-        System.out.println("2 - Atualizar Aluguel");
-        System.out.println("3 - Registrar Pagamento");        
-        System.out.println("4 - Listar Alugueis");
-        System.out.println("5 - Listar Alugueis Atrasados");                      
+        System.out.println("1 - Cadastrar Aluguel");        
+        System.out.println("2 - Registrar Pagamento");        
+        System.out.println("3 - Listar Alugueis");
+        System.out.println("4 - Listar Alugueis Atrasados");                      
+        System.out.println("5 - Listar Alugueis em Dia");                      
         System.out.println("----------------------------");       
         int menu = scanner.nextInt();
         switch (menu){
             case 1:
+                scanner.nextLine();
+                System.out.println("IdInquilino:");
+                id_usuario = Integer.parseInt(scanner.nextLine());
+                System.out.println("IdImovel:");
+                id_imovel = Integer.parseInt(scanner.nextLine());
+                System.out.println("Valor:");
+                valor = Double.parseDouble(scanner.nextLine());
+                System.out.println("Tempo contrato(meses):");
+                int tempo = Integer.parseInt(scanner.nextLine());                
+                System.out.println("Data limite(dia limite para cada mês):");
+                int data_limite = Integer.parseInt(scanner.nextLine());
+                System.out.println("Juros Atraso(%):");
+                double juros = Double.parseDouble(scanner.nextLine());
+                              
+                try {                              
+                    controller.addAluguel(id_usuario, id_imovel, tempo, valor, juros, data_limite);
+                    System.out.println("inserido com sucesso");                    
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }                        
                 break;
             case 2:
+                scanner.nextLine();
+                System.out.println("IdInquilino:");
+                id_usuario = Integer.parseInt(scanner.nextLine());
+                System.out.println("IdAluguel:");
+                int id_aluguel = Integer.parseInt(scanner.nextLine());
+                System.out.println("Valor:");
+                valor = Double.parseDouble(scanner.nextLine());
+                System.out.println("Data de pagamento(dia/mes/ano):");
+                String data_pagamento = scanner.nextLine();                     
+                
+                try {
+                    controller.addPagamento(id_usuario, id_aluguel, data_pagamento, valor);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                        
                 break;
-            case 3:
+            case 3:                       
+                try {
+                    for(Aluguel aluguel: controller.listarAluguel()){
+                       System.out.println(aluguel.toString());
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }                        
                 break;
             case 4:
                 break;
@@ -155,6 +210,9 @@ public class Imobiliaria {
     }
     
     public static void menuEscolhaVendas(){
+        
+        ControllerCompra controllerCompra = new ControllerCompra();
+        
         System.out.println("----------------------------");
         System.out.println("O que deseja ?");
         System.out.println("1 - Listar Vendas");
@@ -162,14 +220,33 @@ public class Imobiliaria {
         System.out.println("----------------------------");       
         int menu = scanner.nextInt();
         switch (menu){
-            case 1:
+            case 1:        
+                try {
+                    for(Compra compra : controllerCompra.listarCompra())
+                        System.out.println(compra.toString());
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }        
                 break;
             case 2:
+                scanner.nextLine();
+                System.out.println("IdComprador:");
+                int id_usuario = Integer.parseInt(scanner.nextLine());
+                System.out.println("IdImovel:");
+                int id_imovel = Integer.parseInt(scanner.nextLine());
+                System.out.println("Valor:");
+                double valor = Double.parseDouble(scanner.nextLine());
+                        
+                try {
+                    controllerCompra.addVenda(id_usuario, id_imovel, valor);
+                    System.out.println("inserido com sucesso");
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }            
                 break;           
             default:
                 System.out.println("comando invalido");
                 break;
         }        
-    }
-    
+    }    
 }
