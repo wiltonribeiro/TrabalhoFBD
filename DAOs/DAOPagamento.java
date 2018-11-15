@@ -19,7 +19,7 @@ public class DAOPagamento implements DAO<Pagamento>{
 
     @Override
     public void add(Pagamento pagamento) throws Exception{                          
-            String sql = "INSERT INTO pagamento(id_aluguel, data_pagamento, valor_pago) values(?,?,?,?)";
+            String sql = "INSERT INTO pagamento(id_aluguel, data_pagamento, valor_pago) values(?,?,?)";
             connection = new DatabaseConnection();
             PreparedStatement stmt = connection.getCon().prepareStatement(sql);                                              
             stmt.setInt(1, pagamento.getId_aluguel());

@@ -173,9 +173,7 @@ public class Imobiliaria {
                 }                        
                 break;
             case 2:
-                scanner.nextLine();
-                System.out.println("IdInquilino:");
-                id_usuario = Integer.parseInt(scanner.nextLine());
+                scanner.nextLine();                
                 System.out.println("IdAluguel:");
                 int id_aluguel = Integer.parseInt(scanner.nextLine());
                 System.out.println("Valor:");
@@ -184,7 +182,7 @@ public class Imobiliaria {
                 String data_pagamento = scanner.nextLine();                     
                 
                 try {
-                    controller.addPagamento(id_usuario, id_aluguel, data_pagamento, valor);
+                    controller.addPagamento(id_aluguel, data_pagamento, valor);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }

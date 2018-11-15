@@ -27,13 +27,13 @@ public class ControllerAluguel {
         return daoAluguel.list();
     }
     
-    public void addPagamento(int id_usuario, int id_aluguel, String data_pagamento, double valor_pago) throws Exception {
+    public void addPagamento(int id_aluguel, String data_pagamento, double valor_pago) throws Exception {
         
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         java.util.Date parsed = format.parse(data_pagamento);
         Date sql = new java.sql.Date(parsed.getTime());
                 
-        Pagamento pagamento = new Pagamento(id_usuario, id_aluguel, sql, valor_pago);        
+        Pagamento pagamento = new Pagamento(id_aluguel, sql, valor_pago);        
         daoPagamento.add(pagamento);
     }
     
