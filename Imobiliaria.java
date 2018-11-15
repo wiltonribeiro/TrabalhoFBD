@@ -7,6 +7,7 @@ import imobiliaria.pojo.Aluguel;
 import imobiliaria.pojo.Apartamento;
 import imobiliaria.pojo.Compra;
 import imobiliaria.pojo.Imovel;
+import imobiliaria.pojo.Usuario;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
@@ -146,7 +147,8 @@ public class Imobiliaria {
         System.out.println("2 - Registrar Pagamento");        
         System.out.println("3 - Listar Alugueis");
         System.out.println("4 - Listar Alugueis Atrasados");                      
-        System.out.println("5 - Listar Alugueis em Dia");                      
+        System.out.println("5 - Listar Inquilinos de Alugueis Atrasados");                      
+        System.out.println("6 - Listar Alugueis em Dia");                      
         System.out.println("----------------------------");       
         int menu = scanner.nextInt();
         switch (menu){
@@ -198,8 +200,22 @@ public class Imobiliaria {
                 }                        
                 break;
             case 4:
+                try {
+                    for(Aluguel aluguel: controller.listarAlugueisAtrados()){
+                       System.out.println(aluguel.toString());
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }                        
                 break;
             case 5:
+                try {
+                    for(Usuario usuario: controller.listarInquilinosDeAlugueisAtrados()){
+                       System.out.println(usuario.toString());
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }                        
                 break;
             default:
                 System.out.println("comando invalido");

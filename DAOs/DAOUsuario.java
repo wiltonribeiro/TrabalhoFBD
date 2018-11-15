@@ -58,4 +58,19 @@ public class DAOUsuario implements DAO<Usuario>{
         
         return usuarios;
     }
+    
+    public Usuario findUsuarioById(int id) throws Exception{
+            String sql = "SELECT * from usuario where id_usuario = ?";
+            connection = new DatabaseConnection();
+            PreparedStatement stmt = connection.getCon().prepareCall(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next())            
+                return new Usuario(
+                        rs.getInt("id_usuario"),
+                        rs.getString("nome"), 
+                        rs.getString("endereco"), 
+                        rs.getString("contato"));
+            return null;
+    }
 }

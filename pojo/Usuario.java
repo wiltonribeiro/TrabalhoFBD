@@ -48,5 +48,11 @@ public class Usuario {
     public void setContato(String contato) {
         this.contato = contato;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario" + "id_usuario:" + id_usuario + " nome:" + nome + " endereco:" + endereco + " contato:" + contato;
+    }
+    
     
 }

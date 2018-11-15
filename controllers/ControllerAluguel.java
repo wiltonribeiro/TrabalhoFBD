@@ -2,10 +2,13 @@ package imobiliaria.controllers;
 
 import imobiliaria.DAOs.DAOAluguel;
 import imobiliaria.DAOs.DAOPagamento;
+import imobiliaria.DAOs.DAOUsuario;
 import imobiliaria.pojo.Aluguel;
 import imobiliaria.pojo.Pagamento;
+import imobiliaria.pojo.Usuario;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControllerAluguel {
@@ -41,4 +44,17 @@ public class ControllerAluguel {
         return daoPagamento.list();
     }
     
+    public List<Aluguel> listarAlugueisAtrados() throws Exception{        
+        return daoAluguel.listAlugueisAtrasados();
+    }    
+    
+    public List<Usuario> listarInquilinosDeAlugueisAtrados() throws Exception{        
+        List<Usuario> usuarios = new ArrayList<>();
+        
+        DAOUsuario daoUsuario = new DAOUsuario();
+        for(Aluguel aluguel: daoAluguel.listAlugueisAtrasados()){
+            usuarios.add(daoUsuario.findUsuarioById(aluguel.getId_usuario()));
+        }
+        return usuarios;
+    }
 }

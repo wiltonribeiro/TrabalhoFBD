@@ -57,4 +57,30 @@ public class DAOAluguel implements DAO<Aluguel>{
     public void update(Aluguel t) throws Exception {
         
     }
+    
+    public List<Aluguel> listAlugueisAtrasados() throws Exception{
+            alugueis.clear();
+        
+            String sql = "select alugueis_atrasado();";
+            connection = new DatabaseConnection();
+            Statement stmt = connection.getCon().createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while (rs.next()) {
+                alugueis.add(findAluguelById(rs.getInt("alugueis_atrasado")));
+            }
+            
+            return alugueis;
+        
+    }
+    
+    private Aluguel findAluguelById(int id) throws Exception{
+            String sql = "select * from aluguel where id_aluguel = ?;";
+            connection = new DatabaseConnection();
+            PreparedStatement stmt = connection.getCon().prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) return new Aluguel(rs.getInt("id_aluguel"),rs.getInt("id_usuario"), rs.getInt("id_imovel"),rs.getInt("tempo_contrato"), rs.getDouble("valor"), rs.getDouble("juros_atraso"), rs.getInt("data_pagamento"));
+            return null;
+    }
 }
