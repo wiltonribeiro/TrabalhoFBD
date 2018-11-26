@@ -165,14 +165,10 @@ as $$
 
 begin
 	return query
-		select 
-			id_aluguel
-		from 
-			aluguel left join alugueis_atrasado
-		on
-			id_aluguel = aluguel_id
-		where
-			aluguel_id is null;
+		return query 
+	    select a.id_aluguel from aluguel a where not in(
+            select alugueis_atrasado()
+	    );
 	return;
 	
 end;

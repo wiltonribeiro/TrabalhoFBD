@@ -76,7 +76,7 @@ public class DAOAluguel implements DAO<Aluguel>{
     public List<Aluguel> listAlugueisEmDia() throws Exception{
             alugueis.clear();
         
-            String sql = "select alugueis_emdia();";
+            String sql = "select alugueis_emDia();";
             connection = new DatabaseConnection();
             Statement stmt = connection.getCon().createStatement();
             ResultSet rs = stmt.executeQuery(sql);
