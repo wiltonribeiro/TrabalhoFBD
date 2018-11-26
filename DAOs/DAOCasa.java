@@ -31,12 +31,12 @@ public class DAOCasa implements DAO<Casa> {
     }
 
     @Override
-    public void remove(Casa casas) {
+    public void remove(Casa casa) {
         
     }
 
     @Override
-    public void update(Casa casas) {
+    public void update(Casa casa) {
         
     }
 
