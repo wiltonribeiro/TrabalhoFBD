@@ -32,7 +32,7 @@ public class DAOUsuario implements DAO<Usuario>{
     }
 
     @Override
-    public void remove(Usuario t) {
+    public void remove(String key) {
         
     }
 
@@ -72,5 +72,38 @@ public class DAOUsuario implements DAO<Usuario>{
                         rs.getString("endereco"), 
                         rs.getString("contato"));
             return null;
+    }
+    
+    public List<Usuario> listProprietarios() throws Exception {
+        
+            String sql = "select * from usuario u, imovel i where i.id_usuario = u.id_usuario;";
+            connection = new DatabaseConnection();
+            Statement stmt = connection.getCon().createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while (rs.next()) {
+                usuarios.add(new Usuario(rs.getInt("id_usuario"),
+                        rs.getString("nome"), 
+                        rs.getString("endereco"), 
+                        rs.getString("contato")));
+            }                              
+        
+        return usuarios;
+    }
+    
+    public List<Usuario> listInquilinos() throws Exception {
+            String sql = "select * from usuario u, aluguel a where a.id_usuario = u.id_usuario;";
+            connection = new DatabaseConnection();
+            Statement stmt = connection.getCon().createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while (rs.next()) {
+                usuarios.add(new Usuario(rs.getInt("id_usuario"),
+                        rs.getString("nome"), 
+                        rs.getString("endereco"), 
+                        rs.getString("contato")));
+            }                              
+        
+        return usuarios;
     }
 }

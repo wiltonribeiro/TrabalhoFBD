@@ -19,4 +19,8 @@ public class ControllerImovel {
     public List<Imovel> listarImoveis() throws Exception{
         return dao.list();
     }
+    
+    public void removeImovel(String id_imovel) throws Exception{
+        dao.remove(id_imovel);
+    }
 }

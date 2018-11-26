@@ -47,7 +47,7 @@ public class DAOACompra implements DAO<Compra>{
     }
 
     @Override
-    public void remove(Compra compra) throws Exception {
+    public void remove(String key) throws Exception {
         
     }
 

@@ -1,21 +1,19 @@
 package imobiliaria;
 import imobiliaria.controllers.ControllerAluguel;
+import imobiliaria.controllers.ControllerApartamento;
+import imobiliaria.controllers.ControllerCasa;
 import imobiliaria.controllers.ControllerCompra;
 import imobiliaria.controllers.ControllerImovel;
 import imobiliaria.controllers.ControllerUsuario;
 import imobiliaria.pojo.Aluguel;
 import imobiliaria.pojo.Apartamento;
+import imobiliaria.pojo.Casa;
 import imobiliaria.pojo.Compra;
 import imobiliaria.pojo.Imovel;
 import imobiliaria.pojo.Usuario;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Imobiliaria {
-    
     
     private static Scanner scanner;
     
@@ -51,24 +49,31 @@ public class Imobiliaria {
     public static void menuEscolhaImovel(){
         
         ControllerImovel controller = new ControllerImovel();
+        ControllerCasa controllerCasa = new ControllerCasa();
+        ControllerApartamento controllerApartamento = new ControllerApartamento();
         
         System.out.println("----------------------------");
         System.out.println("O que deseja ?");
         System.out.println("1 - Cadastrar Apartamento:");
         System.out.println("2 - Cadastrar Casa");
         System.out.println("3 - Listar Imoveis");
-        System.out.println("4 - Excluir Imóvel");                      
+        System.out.println("4 - Listar Casas");
+        System.out.println("5 - Listar Apartamentos");
+        System.out.println("6 - Excluir Imóvel");                      
         System.out.println("----------------------------");       
+        
+        int idUsuario;
+        String endereco, complemento;
         int menu = scanner.nextInt();
         switch (menu){
             case 1:
                 scanner.nextLine();
                 System.out.println("IdUsuario proprietario:");
-                int idUsuario = Integer.parseInt(scanner.nextLine());
+                idUsuario = Integer.parseInt(scanner.nextLine());
                 System.out.println("Endereço:");
-                String endereco = scanner.nextLine();
+                endereco = scanner.nextLine();
                 System.out.println("Complemento:");
-                String complemento = scanner.nextLine();
+                complemento = scanner.nextLine();
                 System.out.println("Andar:");
                 int andar = scanner.nextInt();                        
                 try {
@@ -80,11 +85,11 @@ public class Imobiliaria {
             case 2:
                 scanner.nextLine();
                 System.out.println("IdUsuario proprietario:");
-                int idUsuario = Integer.parseInt(scanner.nextLine());
+                idUsuario = Integer.parseInt(scanner.nextLine());
                 System.out.println("Endereço:");
-                String endereco = scanner.nextLine();
+                endereco = scanner.nextLine();
                 System.out.println("Complemento:");
-                String complemento = scanner.nextLine();
+                complemento = scanner.nextLine();
                 try {
                     controller.addImovel(new Casa(new Imovel(idUsuario, endereco, complemento)));
                 } catch (Exception e) {
@@ -100,6 +105,31 @@ public class Imobiliaria {
                 }
                 break;
             case 4:
+                try{
+                    for(Casa casa: controllerCasa.listarCasa())
+                        System.out.println(casa.toString());
+                } catch(Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+            case 5:
+                try{
+                    for(Apartamento apartamento: controllerApartamento.listarApartamento())
+                        System.out.println(apartamento.toString());
+                } catch(Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+                
+            case 6:
+                scanner.nextLine();
+                System.out.println("IdImovel:");
+                String idImovel = scanner.nextLine();
+                try{
+                    controller.removeImovel(idImovel);
+                } catch(Exception e) {
+                    System.out.println(e.getMessage());
+                }
                 break;
             default:
                 System.out.println("comando invalido");
@@ -116,7 +146,6 @@ public class Imobiliaria {
         System.out.println("2 - Listar Usuários");
         System.out.println("3 - Listar Usuários Inquilinos");
         System.out.println("4 - Listar Usuários Proprietários");                      
-        System.out.println("5 - Listar Usuários Inquilinos Atrasados");                      
         System.out.println("----------------------------");       
         int menu = scanner.nextInt();
         switch (menu){
@@ -145,8 +174,22 @@ public class Imobiliaria {
                 }
                 break;
             case 3:
+                try {
+                    for(Usuario usuario: controller.listarUsuariosInquilinos()){
+                       System.out.println(usuario.toString());
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
                 break;
             case 4:
+                try {
+                    for(Usuario usuario: controller.listarUsuariosProprietarios()){
+                       System.out.println(usuario.toString());
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
                 break;
             default:
                 System.out.println("comando invalido");

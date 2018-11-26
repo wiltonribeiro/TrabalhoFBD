@@ -49,7 +49,7 @@ public class DAOAluguel implements DAO<Aluguel>{
     }
 
     @Override
-    public void remove(Aluguel t) throws Exception {
+    public void remove(String key) throws Exception {
         
     }
 

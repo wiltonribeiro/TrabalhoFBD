@@ -31,7 +31,7 @@ public class DAOApartamento implements DAO<Apartamento> {
     }
 
     @Override
-    public void remove(Apartamento apartamento) {
+    public void remove(String key) {
         
     }
 
@@ -50,7 +50,7 @@ public class DAOApartamento implements DAO<Apartamento> {
 
         while (rs.next()) {
             apartamentos.add(new Apartamento(
-                    new Imovel(rs.getInt("id_imovel"),rs.getInt("id_usario"), rs.getString("endereco"), rs.getString("complemento")),
+                    new Imovel(rs.getInt("id_imovel"),rs.getInt("id_usuario"), rs.getString("endereco"), rs.getString("complemento")),
                     rs.getInt("numero_andar")));
         }           
                

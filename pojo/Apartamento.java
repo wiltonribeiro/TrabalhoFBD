@@ -30,7 +30,11 @@ public class Apartamento extends Imovel{
     public void setNumero_andar(int numero_andar) {
         this.numero_andar = numero_andar;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Apartamento" + "id_imovel:" + super.getId_imovel() + ", id_usuario:" + super.getId_usuario() + " endereco:" + super.getEndereco() + " complemento:" + super.getComplemento() + "id_apartamento:" + id_apartamento + " numero_andar:" + numero_andar;
+    }
     
     
 }

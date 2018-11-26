@@ -38,8 +38,12 @@ public class DAOImovel implements DAO<Imovel> {
     }
 
     @Override
-    public void remove(Imovel imovel) {
-        
+    public void remove(String key) throws Exception{
+        String sql = "DELETE FROM imovel where id_imovel = ?";
+        connection = new DatabaseConnection();
+        PreparedStatement stmt = connection.getCon().prepareStatement(sql);           
+        stmt.setInt(1, Integer.parseInt(key));
+        stmt.execute();
     }
 
     @Override

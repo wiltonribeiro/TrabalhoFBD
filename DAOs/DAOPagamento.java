@@ -43,7 +43,7 @@ public class DAOPagamento implements DAO<Pagamento>{
     }
 
     @Override
-    public void remove(Pagamento pagamento) throws Exception {
+    public void remove(String key) throws Exception {
         
     }
 

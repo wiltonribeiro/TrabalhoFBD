@@ -1,7 +1,7 @@
 package imobiliaria.controllers;
-
 import imobiliaria.DAOs.DAOApartamento;
 import imobiliaria.pojo.Apartamento;
+import imobiliaria.pojo.Imovel;
 import java.util.List;
 
 public class ControllerApartamento {
@@ -9,7 +9,7 @@ public class ControllerApartamento {
 	DAOApartamento dao;
 
 	public ControllerApartamento(){
-		dao = new DAOApartamento;
+		dao = new DAOApartamento();
 	}
 
 	public void addApartamento(Imovel imovel, int numero_andar) throws Exception {

@@ -178,6 +178,20 @@ begin
 end;
 $$ 
 language plpgsql;
+
+create or replace function delete_imovel_func() returns trigger as $$
+begin
+	delete from apartamento where id_imovel = old.id_imovel;
+    delete from casa where id_imovel = old.id_imovel;
+    delete from compra where id_imovel = old.id_imovel;
+    delete from aluguel where id_imovel = old.id_imovel;
+    return old;
+end;
+$$ language plpgsql;
+	
+create trigger delete_imovel
+before delete on imovel
+for each row execute procedure delete_imovel_func();
 	
 
 	

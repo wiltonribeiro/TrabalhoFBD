@@ -12,6 +12,14 @@ public class ControllerUsuario {
        dao = new DAOUsuario();
     }
     
+    public List<Usuario> listarUsuariosProprietarios() throws Exception{
+        return dao.listProprietarios();
+    }
+    
+    public List<Usuario> listarUsuariosInquilinos() throws Exception{
+        return dao.listInquilinos();
+    }
+    
     public List<Usuario> listarUsuarios() throws Exception{
         return dao.list();
     }

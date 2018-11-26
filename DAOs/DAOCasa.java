@@ -31,7 +31,7 @@ public class DAOCasa implements DAO<Casa> {
     }
 
     @Override
-    public void remove(Casa casa) {
+    public void remove(String key) {
         
     }
 
@@ -49,7 +49,7 @@ public class DAOCasa implements DAO<Casa> {
         ResultSet rs = stmt.executeQuery(sql);
 
         while (rs.next()) {
-            casas.add(new Casa(new Imovel(rs.getInt("id_imovel"),rs.getInt("id_usario"), rs.getString("endereco"), rs.getString("complemento"))));
+            casas.add(new Casa(new Imovel(rs.getInt("id_imovel"),rs.getInt("id_usuario"), rs.getString("endereco"), rs.getString("complemento"))));
         }           
                
         return casas;
