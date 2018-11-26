@@ -12,7 +12,7 @@ public class ControllerUsuario {
        dao = new DAOUsuario();
     }
     
-    public List<Usuario> listarImoveis() throws Exception{
+    public List<Usuario> listarUsuarios() throws Exception{
         return dao.list();
     }
     

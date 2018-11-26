@@ -78,6 +78,18 @@ public class Imobiliaria {
                 }                       
                 break;
             case 2:
+                scanner.nextLine();
+                System.out.println("IdUsuario proprietario:");
+                int idUsuario = Integer.parseInt(scanner.nextLine());
+                System.out.println("Endereço:");
+                String endereco = scanner.nextLine();
+                System.out.println("Complemento:");
+                String complemento = scanner.nextLine();
+                try {
+                    controller.addImovel(new Casa(new Imovel(idUsuario, endereco, complemento)));
+                } catch (Exception e) {
+                    System.out.println("error: "+e.getMessage());
+                }
                 break;
             case 3:
                 try{
@@ -124,6 +136,13 @@ public class Imobiliaria {
                 }                               
                 break;
             case 2:
+                try {
+                    for(Usuario usuario: controller.listarUsuarios()){
+                       System.out.println(usuario.toString());
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
                 break;
             case 3:
                 break;
