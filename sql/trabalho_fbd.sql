@@ -160,4 +160,24 @@ begin
 end;
 $$ language plpgsql;
 
+create or replace function alugueis_emDia() returns table(aluguel_id integer) 
+as $$
+
+begin
+	return query
+		select 
+			id_aluguel
+		from 
+			aluguel left join alugueis_atrasado
+		on
+			id_aluguel = aluguel_id
+		where
+			aluguel_id is null;
+	return;
+	
+end;
+$$ 
+language plpgsql;
+	
+
 	
