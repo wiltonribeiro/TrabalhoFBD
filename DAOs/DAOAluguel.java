@@ -71,7 +71,21 @@ public class DAOAluguel implements DAO<Aluguel>{
             }
             
             return alugueis;
+    }
+    
+    public List<Aluguel> listAlugueisEmDia() throws Exception{
+            alugueis.clear();
         
+            String sql = "select alugueis_emdia();";
+            connection = new DatabaseConnection();
+            Statement stmt = connection.getCon().createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            
+            while (rs.next()) {
+                alugueis.add(findAluguelById(rs.getInt("alugueis_emdia")));
+            }
+
+            return alugueis;
     }
     
     private Aluguel findAluguelById(int id) throws Exception{

@@ -236,6 +236,15 @@ public class Imobiliaria {
                     System.out.println(e.getMessage());
                 }                        
                 break;
+            case 6:
+                try {
+                    for(Aluguel aluguel: controller.listarAlugueisEmDia()){
+                       System.out.println(aluguel.toString());
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }                        
+                break;
             default:
                 System.out.println("comando invalido");
                 break;

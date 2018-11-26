@@ -57,4 +57,19 @@ public class ControllerAluguel {
         }
         return usuarios;
     }
+
+    public List<Aluguel> listarAlugueisEmDia() throws Exception{        
+        return daoAluguel.listAlugueisEmDia();
+    }
+
+    public List<Usuario> listarInquilinosDeAlugueisEmDia() throws Exception{        
+        List<Usuario> usuarios = new ArrayList<>();
+        
+        DAOUsuario daoUsuario = new DAOUsuario();
+        for(Aluguel aluguel: daoAluguel.listAlugueisEmDia()){
+            usuarios.add(daoUsuario.findUsuarioById(aluguel.getId_usuario()));
+        }
+        return usuarios;
+    }
+
 }
