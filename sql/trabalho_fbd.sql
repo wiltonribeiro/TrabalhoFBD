@@ -164,13 +164,12 @@ create or replace function alugueis_emDia() returns table(aluguel_id integer)
 as $$
 
 begin
-	return query
-		return query 
-	    select a.id_aluguel from aluguel a where not in(
+    return query
+        select a.id_aluguel from aluguel a where a.id_aluguel not in(
             select alugueis_atrasado()
-	    );
-	return;
-	
+        );
+    return;
+    
 end;
 $$ 
 language plpgsql;
